@@ -1,0 +1,24 @@
+<nav *ngIf="isLoggedIn()" class="navbar navbar-expand-lg fixed-top navbar-light bg-light shadow-sm">
+  <a class="navbar-brand mr-auto mr-lg-0" href="#">
+    <img class="mr-3" src="/assets/images/chef-white-32.png" alt="" width="24" height="24"> CookBook
+  </a>
+  <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="navbar-collapse offcanvas-collapse pl-5" id="navbarsExampleDefault">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" [routerLink]="['/feeds']">Feeds <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/recipes']">My Recipes</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <!-- <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
+      <button class="btn btn-outline-dark my-2 my-sm-0" type="button" (click)="logout()">Logout</button>
+    </form>
+  </div>
+</nav>

@@ -1,0 +1,51 @@
+<div class="my-3 p-3 bg-white rounded shadow-sm">
+    <app-spinner *ngIf="loading"></app-spinner>
+    <div class="card">
+        <img class="card-img-top" [src]="recipeModel?.PhotoUrl" alt="Recipe Image">
+        <div class="card-body">
+          <div *ngIf="">
+            
+          </div>
+          <h5 class="card-title">{{ recipeModel?.Name }}</h5>
+          <div *ngIf="recipeModel?.Ingredients?.length > 0" class="ingredients">
+              <ul>
+                  <li *ngFor="let ingredient of recipeModel.Ingredients">
+                      <a href="https://en.m.wikipedia.org/wiki/{{ingredient}}">{{ ingredient }}</a>
+                  </li>
+              </ul>
+          </div>
+          <p class="card-text">{{ recipeModel?.Instructions }}</p>
+        </div>
+        <div class="card-footer">
+          <div class="float-right"><button class="btn btn-secondary" [routerLink]="['/recipes']">Back</button></div>
+        </div>
+    </div>
+    <!-- <div>
+      <div class="col-md-12 row border-bottom border-gray pb-3">
+        <div class="col-md-2">
+            <img [src]="recipe.PhotoUrl" class="photoUrl" />
+        </div>
+        <div class="col-md-10 text-left">
+            <div class="media-body pb-3 mb-0 small">
+                <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-md-10 px-0">
+                          <strong class="recipe-name" class="d-block text-gray-dark">{{ recipe.Name }}</strong>
+                      </div>
+                    </div>
+                </div>
+                <div class="ingredients">
+                  <ul class="list-inline">
+                      <li *ngFor="let ingredient of recipe.Ingredients" class="list-inline-item">
+                          <a href="https://en.m.wikipedia.org/wiki/{{ingredient}}">{{ ingredient }}</a>
+                      </li>
+                  </ul>
+                </div>
+                <div class="instructions">
+                    <span>{{ recipe.Instructions }}</span>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div> -->
+  </div>

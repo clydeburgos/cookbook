@@ -1,0 +1,37 @@
+<div [@routerTransition]>
+  <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Recipe Information</h4>
+      <button type="button" class="close" aria-label="Close" (click)="close()">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+    <div class="col-md-12 order-md-1">
+          <app-spinner *ngIf="loading"></app-spinner>
+          <div class="mb-3">
+            <label>Name</label>
+            <input type="text" class="form-control" [(ngModel)]="recipeModel.Name" placeholder="Steak, Salad, Pasta Italiani..." required>
+          </div>
+      
+          <div class="mb-3">
+              <label>Ingredients</label>
+              <div class="ingredient-items">
+                <div *ngIf="!recipe" class="mb-2">
+                    <input type="text" class="form-control additionalIngredientName" placeholder="Pork, Salt, soy sauce..." (keydown)="addNewIngredients($event)" required>
+                </div>
+                <div class="mt-2" #additionalIngredient>
+                </div>
+              </div>
+          </div>
+      
+          <div class="mb-3">
+              <label>Steps to cook</label>
+              <textarea class="form-control" [(ngModel)]="recipeModel.Instructions" placeholder="Place ingredients to bowl, Grill..."></textarea>
+            </div>
+      </div>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-success" (click)="save()">Save</button> &nbsp;
+      <button type="button" class="btn btn-outline-dark" (click)="close()">Close</button>
+  </div>
+</div>

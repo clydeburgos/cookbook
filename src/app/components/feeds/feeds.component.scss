@@ -1,0 +1,15 @@
+.recipe-item {
+    height: 165px;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+.description, .content {
+    height: 50px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+}
+.photoUrl {
+    width: 150px;
+    height: 130px;
+}

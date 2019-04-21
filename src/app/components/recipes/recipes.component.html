@@ -1,0 +1,18 @@
+<div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm" [@routerTransition]>
+  <img class="mr-3" src="/assets/images/chef-64.png" alt="" width="48" height="48">
+  <div class="lh-100">
+    <h6 class="mb-0 text-white lh-100">Cooking Best Gourmet</h6>
+    <small>Since 2011</small>
+  </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2 w-50" type="text" placeholder="Search" [(ngModel)]="searchInput" aria-label="Search">
+            <button class="btn btn-info my-2 my-sm-0" type="button" (click)="search()">Search</button> &nbsp;
+            <button class="btn btn-success my-2 my-sm-0" (click)="addRecipe()" type="button">Add new recipe</button>
+          </div>
+    </div>
+</div>
+
+<app-recipe-list #recipeList></app-recipe-list>

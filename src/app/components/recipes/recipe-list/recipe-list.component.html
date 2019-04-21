@@ -1,0 +1,45 @@
+<div class="my-3 p-3 bg-white rounded shadow-sm">
+  <h6 class="border-bottom border-gray pb-2 mb-0">My Recipes</h6>
+  <app-spinner *ngIf="loading"></app-spinner>
+  <div *ngFor="let recipe of recipes" class="recipe-item media text-muted pt-3">
+    <div class="col-md-12 row border-bottom border-gray pb-3">
+      <div class="col-md-2">
+          <a href="javascript:void(0)" [routerLink]="['/recipes/' + recipe.Id]"><img [src]="recipe.PhotoUrl" class="photoUrl" /></a>
+      </div>
+      <div class="col-md-10 text-left">
+          <div class="media-body pb-3 mb-0 small">
+              <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-10 px-0">
+                        <a href="javascript:void(0)" [routerLink]="['/recipes/' + recipe.Id]"><strong class="recipe-name" class="d-block text-gray-dark">{{ recipe.Name }}</strong></a>
+                    </div>
+                    <div class="col-md-2 px-0 text-right">
+                      <div class="d-flex float-right">
+                        <a href="javascript:void(0)" class="px-2" [routerLink]="['/recipes/' + recipe.Id]"><i class="fa fa-eye text-primary"></i></a> 
+                        <a href="javascript:void(0)" class="px-2" (click)="edit(recipe)"><i class="fa fa-pencil text-warning"></i></a>
+                        <a href="javascript:void(0)" class="px-2" (click)="delete(recipe.Id)"><i class="fa fa-times-circle text-danger"></i></a> 
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              <div class="ingredients">
+                <ul class="list-inline">
+                    <li *ngFor="let ingredient of recipe.Ingredients" class="list-inline-item">
+                        <a href="https://en.m.wikipedia.org/wiki/{{ingredient}}">{{ ingredient }}</a>
+                    </li>
+                </ul>
+              </div>
+              <div class="instructions">
+                  <span>{{ recipe.Instructions }}</span>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="recipes.length === 0" class="recipe-item media text-muted pt-3">
+    <div class="text-center col-md-12">
+      <img src="/assets/images/no-meat.png" class="no-mean-img" />
+      <h6>No Recipes added yet, Mind to create a new one?</h6>
+    </div>
+  </div>
+</div>

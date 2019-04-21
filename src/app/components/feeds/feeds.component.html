@@ -1,0 +1,36 @@
+<div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm" [@routerTransition]>
+  <img class="mr-3" src="/assets/images/chef-64.png" alt="" width="48" height="48">
+  <div class="lh-100">
+    <h6 class="mb-0 text-white lh-100">Cooking Best Gourmet</h6>
+    <small>Since 2011</small>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+      <div class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2 w-50" type="text" [(ngModel)]="searchInput" placeholder="Search" aria-label="Search">
+          <button class="btn btn-info my-2 my-sm-0" type="button" (click)="filter()">Search</button> &nbsp;
+        </div>
+  </div>
+</div>
+<app-spinner *ngIf="loading"></app-spinner>
+<div class="my-3 p-3 bg-white rounded shadow-sm">
+  <h6 class="border-bottom border-gray pb-2 mb-0">Feeds</h6>
+  <div *ngFor="let item of feeds" class="recipe-item media text-muted pt-3">
+    <div class="col-md-12 row border-bottom border-gray pb-3">
+      <div class="col-md-2">
+          <img [src]="item.thumbnail" class="photoUrl" />
+      </div>
+      <div class="col-md-10 text-left">
+          <div class="media-body pb-3 mb-0 small">
+              <strong class="recipe-name" class="d-block text-gray-dark">{{ item.title }}</strong>
+              <small>by <b>{{ item.author }} | {{ item.pubDate | date:'yyyy-MM-dd' }}</b></small>
+              <div class="description pt-2">
+                  <span>{{ item.description }}</span>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+

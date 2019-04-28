@@ -23,7 +23,7 @@ export class RecipeListComponent extends BaseComponent implements OnInit {
     private modal: NgbModal) { 
     super();
     this.dataService.event.subscribe((res : any) => {
-      this.loadRecipes(res);
+      this.loadRecipes();
     });
   }
 

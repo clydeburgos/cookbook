@@ -19,6 +19,7 @@ export class RecipeCreateEditComponent extends BaseComponent implements OnInit {
   @ViewChild('additionalIngredient') additionalIngredientsContEl: ElementRef;
   loading: boolean = false;
   additionalIngredientsCounter: number = 1;
+
   constructor(
     private dialog: NgbActiveModal, 
     private elem: ElementRef,
@@ -35,6 +36,17 @@ export class RecipeCreateEditComponent extends BaseComponent implements OnInit {
       this.recipeModel = this.recipe;
       this.generateIngredientsInput();
     }
+
+    this.eventDelegate();
+  }
+
+  eventDelegate(){
+    let self = this;
+    document.addEventListener('keydown', function(e : any) {
+      if(e.target && e.target.className.indexOf('additionalIngredientName') > -1){
+        self.addNewIngredients(e);
+       }
+   });
   }
 
   save(){ 

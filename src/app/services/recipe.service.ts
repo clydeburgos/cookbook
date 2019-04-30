@@ -12,13 +12,7 @@ export class RecipeService {
   baseAPIUrl: string = this.baseAPIRoot + this.baseAPIRoute;
   requestOptions: any;
   constructor(private http: HttpClient) { 
-    this.requestOptions = {
-        headers: new HttpHeaders({
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS'
-        })
-    }
+
 }
 
   getRecipe(id:string){
@@ -31,7 +25,7 @@ export class RecipeService {
   }
 
   saveRecipe(recipe){
-      return this.http.post(`${this.baseAPIUrl}`, recipe, this.requestOptions);
+      return this.http.post(`${this.baseAPIUrl}`, recipe);
   }
 
   deleteRecipe(id) {

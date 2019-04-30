@@ -17,7 +17,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
   constructor(
     private afAuth: AngularFireAuth, 
     private authService: AuthService,
-    private user: UserService,
+    private userService: UserService,
     private toastr: ToastrService,
     private router: Router) { 
       super();
@@ -33,7 +33,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
       let user = res.user;
       if(user) {
 
-				this.user.setUser({
+				this.userService.setUser({
           username: user.email,
           uid: res.user.uid
         });
@@ -43,15 +43,19 @@ export class LoginComponent extends BaseComponent implements OnInit {
           Name: user.displayName,
           Email: user.email,
           PhotuorUrl: user.photoURL,
-          AccessToken: this.afAuth.idToken
+          RefreshToken: user.refreshToken
         }
 
         super.setUser(userModel);
-        super.onLogIn();
 
-				setTimeout(() => {
-					this.router.navigate(['/recipes']);
-				}, 1000);
+        this.fireBaseTokenization().then((res) => {
+          this.verifyAuth().then((auth) => {
+            super.onLogIn();
+            setTimeout(() => {
+              this.router.navigate(['/recipes']);
+            }, 1000);
+          });
+        });
       }
     }, (error : any) => {
       this.toastr.error(error.message,'Error')
@@ -65,7 +69,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
       let user = res.user;
       if(user) {
 
-				this.user.setUser({
+				this.userService.setUser({
           username: user.email,
           uid: res.user.uid
         });
@@ -75,17 +79,43 @@ export class LoginComponent extends BaseComponent implements OnInit {
           Name: user.displayName,
           Email: user.email,
           PhotuorUrl: user.photoURL,
-          AccessToken: this.afAuth.idToken
+          RefreshToken: user.refreshToken
         }
 
         super.setUser(userModel);
-        super.onLogIn();
 
-				setTimeout(() => {
-					this.router.navigate(['/recipes']);
-				}, 1000);
+        this.fireBaseTokenization().then((res) => {
+          this.verifyAuth().then((auth) => {
+            super.onLogIn();
+            setTimeout(() => {
+              this.router.navigate(['/recipes']);
+            }, 1000);
+          });
+        });
       }
     })
   }
 
+  fireBaseTokenization(){
+    return new Promise((resolve) => {
+      this.afAuth.idTokenResult.subscribe((res) => {
+          super.setUserToken(res.token);
+          resolve(res.token);
+      });
+    });
+  }
+
+  verifyAuth(){
+    return new Promise((resolve, reject) => {
+      this.userService.verifyAuth().subscribe((res : any) => {
+        if(res.token) {
+          super.setUserToken(res.token);
+          resolve(res.token)
+        }
+        else {
+          reject();
+        }
+      });
+    });
+  }
 }

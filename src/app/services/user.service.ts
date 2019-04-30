@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core'
 import { AngularFireAuth } from '@angular/fire/auth'
 import { first } from 'rxjs/operators'
 import { auth } from 'firebase/app'
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment.prod';
 
 interface user {
 	username: string,
@@ -11,8 +13,11 @@ interface user {
 @Injectable()
 export class UserService {
 	private user: user
+	baseAPIRoot: string = environment.baseUrl;
+	baseAPIRoute: string = 'api/user';
+	baseAPIUrl: string = this.baseAPIRoot + this.baseAPIRoute;
 
-	constructor(private afAuth: AngularFireAuth) {
+	constructor(private afAuth: AngularFireAuth, private http: HttpClient) {
 
 	}
 
@@ -56,5 +61,13 @@ export class UserService {
 
 	getUID(): string {
 		return this.user.uid;
+	}
+
+	verifyAuth(){
+		let user = {
+			Id : JSON.parse(localStorage.getItem('currentUser')).Id,
+			Token : localStorage.getItem('access_token')
+		}
+		return this.http.post(`${this.baseAPIUrl}/verify`, user);
 	}
 }

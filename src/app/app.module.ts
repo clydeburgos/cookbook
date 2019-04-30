@@ -3,7 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http'; 
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'; 
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
@@ -29,6 +29,11 @@ import { AuthService } from './services/auth.service';
 import { RegisterComponent } from './auth/register/register.component';
 import { RecipeService } from './services/recipe.service';
 
+import { JwtModule, JwtInterceptor } from '@auth0/angular-jwt';
+import { JwtHttpInterceptor } from './jwthttpinterceptor';
+export function tokenGetter() {
+	return localStorage.getItem('access_token');
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,6 +58,11 @@ import { RecipeService } from './services/recipe.service';
     ToastrModule.forRoot({
       timeOut: 5000
     }),
+    JwtModule.forRoot({
+			config: {
+        tokenGetter: tokenGetter
+			}
+		}),
     AngularFireAuthModule,
     AngularFirestoreModule
   ],
@@ -63,7 +73,8 @@ import { RecipeService } from './services/recipe.service';
     DataService, 
     UserService,
     AuthGuard, AuthService,
-    FeedService, RecipeService
+    FeedService, RecipeService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtHttpInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

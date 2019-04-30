@@ -28,4 +28,12 @@ export class BaseComponent {
     public getCurrentUserId(){
         return this.getCurrentUser() ? this.getCurrentUser().Id : null;
     }
+
+    public setUserToken(token: string) {
+		localStorage.setItem('access_token', token);
+	}
+
+	private getUserToken() {
+		return localStorage.getItem('access_token');
+	}
 }

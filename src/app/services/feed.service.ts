@@ -12,13 +12,6 @@ export class FeedService {
     private rssToJsonServiceBaseUrl: string = 'https://rss2json.com/api.json?rss_url=';
     private recipeSource: string = 'https://www.bonappetit.com/feed/latest-recipes/rss';
     constructor(private http: HttpClient) { 
-        this.requestOptions = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS'
-            })
-        }
     }
 
     getFeedContent(url?: string): Observable<any> {
